@@ -30,7 +30,7 @@ namespace StockPulse.Reddit
             Host.CreateDefaultBuilder()
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddSingleton<IConfiguration>(_ => config);
+                    services.AddSingleton(_ => config);
                     services.AddHostedService<PulseWorker>();
 
                     services.AddDbContext<StockContext>(options =>

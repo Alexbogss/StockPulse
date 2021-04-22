@@ -13,6 +13,8 @@ namespace StockPulse.Database.Entity
 
         /* TODO event info ex: type */
 
+        public long StockId { get; set; }
+
         public StockEntity Stock { get; set; }
 
         public static void Setup(ModelBuilder builder)

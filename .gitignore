@@ -352,3 +352,7 @@ MigrationBackup/
 # Custom ignores
 StockTracker/RedditStockPulseService/appsettings.json
 StockTracker/StockPulseTests/creds.json
+StockPulse/StockPulseTests/creds.json
+StockPulse/StockPulseTests/NASDAQ_v1.txt
+StockPulse/StockPulseTests/NYSE_v1.txt
+StockPulse/RedditStockPulseService/appsettings.json

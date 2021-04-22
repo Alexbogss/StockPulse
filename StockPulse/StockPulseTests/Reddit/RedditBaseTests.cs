@@ -1,11 +1,10 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json;
 using Reddit;
 using Reddit.AuthTokenRetriever;
+using StockPulse.Tests.Reddit;
 using System.Diagnostics;
-using System.IO;
 
-namespace StockPulse.Tests
+namespace StockPulse.Reddit.Tests
 {
     [TestClass]
     public class RedditBaseTests
@@ -13,7 +12,7 @@ namespace StockPulse.Tests
         [TestMethod]
         public void RedditConnectionTest()
         {
-            var tokens = GetCreds();
+            var tokens = RedditTestHelper.GetCreds();
 
             var reddit = new RedditClient(
                 appId: tokens.AppId,
@@ -33,7 +32,7 @@ namespace StockPulse.Tests
         //[TestMethod]
         public void RedditAuthTest()
         {
-            var tokens = GetCreds();
+            var tokens = RedditTestHelper.GetCreds();
 
             var authTokenRetrieverLib = new AuthTokenRetrieverLib(tokens.AppId, tokens.AppSecret);
 
@@ -64,21 +63,6 @@ namespace StockPulse.Tests
                     Process.Start(processStartInfo);
                 }
             }
-        }
-
-        ClientTokens GetCreds()
-        {
-            var json = File.ReadAllText("../../../creds.json");
-
-            return JsonConvert.DeserializeObject<ClientTokens>(json);
-        }
-
-        struct ClientTokens
-        {
-            public string AppId;
-            public string AppSecret;
-            public string RefreshToken;
-            public string AccessToken;
         }
     }
 }

@@ -5,7 +5,6 @@ using Reddit;
 using Serilog;
 using StockPulse.Database;
 using StockPulse.Database.Extensions;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -31,15 +30,10 @@ namespace StockPulse.Reddit.Worker
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             using var scope = _scopeFactory.CreateScope();
+
             var context = scope.ServiceProvider.GetRequiredService<StockContext>();
 
-            var nyseTickers = StockListHelper.ReadTickersFromFile(_config["NyseStockList"]);
-            await context.AddTickersToDbContext(nyseTickers, "NYSE");
-
-            var nasdaqTickers = StockListHelper.ReadTickersFromFile(_config["NasdaqStockList"]);
-            await context.AddTickersToDbContext(nasdaqTickers, "NASDAQ");
-
-            await context.SaveChangesAsync();
+            await DatabasePrepareFactory.PrepareDb(context, _config);
 
             Log.Information("Tracker started successfully");
         }

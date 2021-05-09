@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Reddit;
 using Serilog;
 using StockPulse.Database;
 using StockPulse.Reddit.Worker;
@@ -31,10 +32,15 @@ namespace StockPulse.Reddit
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.AddSingleton(_ => config);
-                    services.AddHostedService<PulseWorker>();
+                    services.AddSingleton(_ => new RedditClient(
+                        appId: config["AppId"],
+                        appSecret: config["AppSecret"],
+                        refreshToken: config["RefreshToken"]));
 
                     services.AddDbContext<StockContext>(options =>
                         options.UseSqlite(config["DbConnectionString"]), ServiceLifetime.Transient);
+
+                    services.AddHostedService<PulseWorker>();
                 });
     }
 }

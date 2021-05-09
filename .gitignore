@@ -356,3 +356,5 @@ StockPulse/StockPulseTests/creds.json
 StockPulse/StockPulseTests/NASDAQ_v1.txt
 StockPulse/StockPulseTests/NYSE_v1.txt
 StockPulse/RedditStockPulseService/appsettings.json
+StockPulse/Common/Data/appsettings.json
+StockPulse/Common/Data/creds.json

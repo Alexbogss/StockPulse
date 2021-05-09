@@ -1,7 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Reddit;
 using Reddit.AuthTokenRetriever;
-using StockPulse.Tests.Reddit;
+using StockPulse.Tests;
 using System.Diagnostics;
 
 namespace StockPulse.Reddit.Tests
@@ -12,7 +12,7 @@ namespace StockPulse.Reddit.Tests
         [TestMethod]
         public void RedditConnectionTest()
         {
-            var tokens = RedditTestHelper.GetCreds();
+            var tokens = TestHelper.GetCreds();
 
             var reddit = new RedditClient(
                 appId: tokens.AppId,
@@ -32,7 +32,7 @@ namespace StockPulse.Reddit.Tests
         //[TestMethod]
         public void RedditAuthTest()
         {
-            var tokens = RedditTestHelper.GetCreds();
+            var tokens = TestHelper.GetCreds();
 
             var authTokenRetrieverLib = new AuthTokenRetrieverLib(tokens.AppId, tokens.AppSecret);
 

@@ -2,11 +2,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using StockPulse.Database;
 using StockPulse.Database.Extensions;
-using StockPulse.Tests.Reddit;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace StockPulse.Tests.Database
@@ -21,8 +18,10 @@ namespace StockPulse.Tests.Database
 
             var inMemConfig = new Dictionary<string, string>
             {
-                { "NyseStockList", RedditTestHelper.GetNyseStockListPath() },
-                { "NasdaqStockList", RedditTestHelper.GetNasdaqStockListPath() }
+                { "ExchangeList:0:Name", "NYSE" },
+                { "ExchangeList:0:Path", TestHelper.NyseStockListPath },
+                { "ExchangeList:1:Name", "NASDAQ" },
+                { "ExchangeList:1:Path", TestHelper.NasdaqStockListPath }
             };
 
             IConfiguration config = new ConfigurationBuilder()
@@ -30,6 +29,10 @@ namespace StockPulse.Tests.Database
                 .Build();
 
             await DatabasePrepareFactory.PrepareDb(db, config);
+
+            Assert.IsTrue(db.Stocks.Any());
+
+            await db.Database.EnsureDeletedAsync();
         }
     }
 }

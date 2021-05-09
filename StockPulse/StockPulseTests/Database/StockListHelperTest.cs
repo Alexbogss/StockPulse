@@ -1,10 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using StockPulse.Database.Extensions;
-using StockPulse.Tests.Reddit;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace StockPulse.Tests
@@ -15,10 +12,10 @@ namespace StockPulse.Tests
         [TestMethod]
         public async Task TestTickerRead()
         {
-            var nasdaqPath = RedditTestHelper.GetNasdaqStockListPath();
+            var nasdaqPath = TestHelper.NasdaqStockListPath;
             var nasdaqTickerList = StockListHelper.ReadTickersFromFile(nasdaqPath);
 
-            var nysePath = RedditTestHelper.GetNyseStockListPath();
+            var nysePath = TestHelper.NyseStockListPath;
             var nyseTickerList = StockListHelper.ReadTickersFromFile(nysePath);
 
             var result = new List<string>();
